@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { fetchProducts } from "../store/productSlice";
+import { addToCart, fetchProducts } from "../store/productSlice";
+import Product from "./Product";
 
 const List = () => {
   const products = useAppSelector((state) => state.products.products);
@@ -16,7 +17,12 @@ const List = () => {
     <div>
       <h1>Products List</h1>
       {products.map((product) => (
-        <Container key={product.id}>Products will be here</Container>
+        <Container key={product.id} lg style={{ padding: "10px" }}>
+          <Product product={product} />
+          <Button onClick={() => dispatch(addToCart(product))}>
+            Add to Cart
+          </Button>
+        </Container>
       ))}
     </div>
   );
